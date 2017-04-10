@@ -530,8 +530,11 @@ G=cartGrid([L L L]);
     uzvalue1 = u.zvalue(:,:,1:end-1);
     uzvalue = full(uzvalue1);
     
-    uz = uzvalue;
-    uz(isnan(uz))= 0;
+    Jtot = sum(uzvalue(:));
+    
+    
+   % uz = uzvalue;
+   % uz(isnan(uz))= 0;
     
 
 %     uz = uz(:);
@@ -547,28 +550,28 @@ G=cartGrid([L L L]);
 L = 150;
 
 
-A = (R)^2*ones(L,1);
+%A = (R)^2*ones(L,1);
 
-q = zeros(L,1);
+%q = zeros(L,1);
 
-tempuz = zeros(L,1);
+%tempuz = zeros(L,1);
 
 
 
-for k = 1:L;
+%for k = 1:L;
     
-tempuz(k) = sum(sum(uz(:,:,k)));
+%tempuz(k) = sum(sum(uz(:,:,k)));
 
-end
+%end
 
 
-q = tempuz(:).*A;
+%q = tempuz(:).*A;
 
-meanq = mean(q)
+%meanq = mean(q)
 %%
 
 
-K = (L/(L*L)) * (meanq * 1)/(R*1) 
+K = L * R * Jtot ; 
 
 %Kxx=1/((150*R).^2).*sum(sum(sum(full(uz))))
 
