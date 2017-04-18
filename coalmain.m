@@ -7,24 +7,24 @@
 
 %%
 
-%only for geoclear
-load('geoclear.mat');
+%only for geopack
+%load('geopack.mat');
 
 
 %%
-A = 500;
+A = 150;
 
-R = 16.5e-6;
+R = 10e-6;
 
 c = (R)/2; %half of voxel size
 
-distgeo = R*bwdist(geoclear,'euclidean');
+distgeo = R*bwdist(geopack,'euclidean');
 
 for i = 1:A
     for j = 1:A
         for k = 1:A
             
-if geoclear(i,j,k) == 1
+if geopack(i,j,k) == 1
     D1(i,j,k) = 0;
     
 else
@@ -36,6 +36,7 @@ end
     end
 end
     
+%D1 = D1*10e+3;
 
 clear geosmall
 clear distgeo
@@ -47,31 +48,31 @@ clear L
 clear A
  
 
-clear geoclear
+clear geopack
 % D3 = D1(:);
 % meandd = mean(mean(mean(D3(D3~=0))))
 % 
 % clear D3
 
-msgbox('finished definding k')
+%msgbox('finished definding k')
 
 %% Diffusion equation heavily optimised for large grids
 %clc; clear;
 
 %FVToolStartUp()
 
-%  load('geoclear')
+%  load('geopack')
 
 % L = size(geosmall(:,1,1))
 
 %% Define the domain and create a mesh structure
-L = 500;  % domain length
+L = 150;  % domain length
 Nx = L; % number of cells
 m = createMesh3D(Nx,Nx,Nx,L,L,L);
 
 %%
 
-L = 500;
+L = 150;
 mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
 G=cartGrid([L L L]);
 
@@ -115,7 +116,7 @@ BC.back.a(:) = 0; BC.back.b(:)=1; BC.back.c(:)=1; % back boundary
 %MRST produces D2
 
 
-D = zeros(500.^3,1);
+D = zeros(150.^3,1);
 D(G.cells.indexMap)= D1(:);
 D = reshape(D,m.dims);%rand(m.dims);
 
@@ -154,7 +155,7 @@ D.value=ndSparse(D.value,size(D.value));
 %     clear SourceTerm
 %     clear F
    % clear geo2
-    clear geoclear
+    clear geopack
     clear i
     clear j
     clear k
@@ -172,7 +173,7 @@ D.value=ndSparse(D.value,size(D.value));
 
 %%
 %Solveing PDE
- msgbox('start solving')
+ %msgbox('start solving')
 
     c = solvePDE(m, M, RHS);
     
@@ -199,17 +200,17 @@ D.value=ndSparse(D.value,size(D.value));
 
 % startup
 % clc; clear;
-L = 500;
+L = 150;
 mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
 G=cartGrid([L L L]);
 % 
-%     figure
-%     plotCellData(G, c1);
-%     s.EdgeColor = 'none';
-%     colorbar;
-%     view(3);
-%     
-%     drawnow
+    figure
+    plotCellData(G, c1);
+    s.EdgeColor = 'none';
+    colorbar;
+    view(3);
+    
+    drawnow
 
     
     
@@ -240,7 +241,7 @@ G=cartGrid([L L L]);
 
     %%
 % find flow rate of each layer
-L = 500;
+L = 150;
 
 
 A = (R)^2*ones(L,1);
@@ -264,9 +265,9 @@ meanq = mean(q)
 %%
 
 
-K = (L/(L*L)) * (meanq * 1)/(R*1) 
+K = (L/(L*L)) * (meanq * 1)/(R*1) *10^12
 
-%Kxx=1/((500*R).^2).*sum(sum(sum(full(uz))))
+%Kxx=1/((150*R).^2).*sum(sum(sum(full(uz))))
 
 % check1 = uz(:,:,3);
 % check2 = sum(sum(check1));

@@ -52,7 +52,7 @@ end
 
 
 
-  for t = 1: maxdist + 2;
+  for t = 1: maxdist + 3 ;
       
         for i = 2:A-1
         for j = 2:A-1
@@ -61,134 +61,160 @@ end
       if distgeo(i,j,k) ~= 0
           
       if distgeo(i,j,k) < distgeo(i+1,j,k);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j,k);
           Dmax(i,j,k) = Dmax(i+1,j,k);
+          end
       end
       
       if distgeo(i,j,k) < distgeo(i-1,j,k);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j,k);
               Dmax(i,j,k) = Dmax(i-1,j,k);
+          end
       end 
           
       if distgeo(i,j,k) < distgeo(i,j+1,k);
-          
+          if Dmax(i,j,k) < Dmax(i,j+1,k);
               Dmax(i,j,k) = Dmax(i,j+1,k);
+          end
       end 
             
       if distgeo(i,j,k) < distgeo(i,j-1,k);
-          
+          if Dmax(i,j,k) < Dmax(i,j-1,k);
               Dmax(i,j,k) = Dmax(i,j-1,k);
+          end
       end
               
       if distgeo(i,j,k) < distgeo(i,j,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i,j,k+1);
               Dmax(i,j,k) = Dmax(i,j,k+1);
+          end
       end
               
       if distgeo(i,j,k) < distgeo(i,j,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i,j,k-1);
              Dmax(i,j,k) = Dmax(i,j,k-1);
+          end
       end
       
       
       if distgeo(i,j,k) < distgeo(i-1,j+1,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j+1,k+1);
               Dmax(i,j,k) = Dmax(i-1,j+1,k+1);
+          end
       end
       
          if distgeo(i,j,k) < distgeo(i,j+1,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i,j+1,k+1);
               Dmax(i,j,k) = Dmax(i,j+1,k+1);
+          end
       end
       
        if distgeo(i,j,k) < distgeo(i+1,j+1,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j+1,k+1);
               Dmax(i,j,k) = Dmax(i+1,j+1,k+1);
+          end
        end
       
        if distgeo(i,j,k) < distgeo(i-1,j,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j,k+1);
               Dmax(i,j,k) = Dmax(i-1,j,k+1);
+          end
        end
       
        if distgeo(i,j,k) < distgeo(i+1,j,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j,k+1);
               Dmax(i,j,k) = Dmax(i+1,j,k+1);
+          end
        end
       
         if distgeo(i,j,k) < distgeo(i-1,j-1,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j-1,k+1);
               Dmax(i,j,k) = Dmax(i-1,j-1,k+1);
+          end
         end
        
         if distgeo(i,j,k) < distgeo(i,j-1,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i,j-1,k+1);
               Dmax(i,j,k) = Dmax(i,j-1,k+1);
+          end
         end
        
         if distgeo(i,j,k) < distgeo(i+1,j-1,k+1);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j-1,k+1);
               Dmax(i,j,k) = Dmax(i+1,j-1,k+1);
+          end
         end
        
         if distgeo(i,j,k) < distgeo(i-1,j+1,k);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j+1,k);
           Dmax(i,j,k) = Dmax(i-1,j+1,k);
+          end
         end
       
       if distgeo(i,j,k) < distgeo(i+1,j+1,k);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j+1,k);
           Dmax(i,j,k) = Dmax(i+1,j+1,k);
+          end
       end
       
       if distgeo(i,j,k) < distgeo(i+1,j-1,k);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j-1,k);
           Dmax(i,j,k) = Dmax(i+1,j-1,k);
+          end
       end
       
       if distgeo(i,j,k) < distgeo(i-1,j-1,k);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j-1,k);
           Dmax(i,j,k) = Dmax(i-1,j-1,k);
+          end
       end
       
       if distgeo(i,j,k) < distgeo(i-1,j+1,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j+1,k-1);
               Dmax(i,j,k) = Dmax(i-1,j+1,k-1);
+          end
       end
       
          if distgeo(i,j,k) < distgeo(i,j+1,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i,j+1,k-1)
               Dmax(i,j,k) = Dmax(i,j+1,k-1);
+          end
       end
       
        if distgeo(i,j,k) < distgeo(i+1,j+1,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j+1,k-1);
               Dmax(i,j,k) = Dmax(i+1,j+1,k-1);
+          end
        end
       
        if distgeo(i,j,k) < distgeo(i-1,j,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j,k-1);
               Dmax(i,j,k) = Dmax(i-1,j,k-1);
+          end
        end
       
        if distgeo(i,j,k) < distgeo(i+1,j,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j,k-1);
               Dmax(i,j,k) = Dmax(i+1,j,k-1);
+          end
        end
       
         if distgeo(i,j,k) < distgeo(i-1,j-1,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i-1,j-1,k-1);
               Dmax(i,j,k) = Dmax(i-1,j-1,k-1);
+          end
         end
        
         if distgeo(i,j,k) < distgeo(i,j-1,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i,j-1,k-1);
               Dmax(i,j,k) = Dmax(i,j-1,k-1);
+          end
         end
        
         if distgeo(i,j,k) < distgeo(i+1,j-1,k-1);
-          
+          if Dmax(i,j,k) < Dmax(i+1,j-1,k-1);
               Dmax(i,j,k) = Dmax(i+1,j-1,k-1);
+          end
         end
       
                     end
@@ -197,7 +223,9 @@ end
         end
   end
               
+  Dmax(:,:,1) = Dmax(:,:,2);
   
+  Dmax(:,:,end) = Dmax(:,:,2);
 %   for i = 1:size(distgeo,1)-1;
 %     
 %     figure(100)
@@ -218,98 +246,122 @@ for i = 1:A
   
 if Dmax(i,j,k) == 0.5
     Sdmax(i,j,k) = 1;
+    fcdmax(i,j,k) = 0.25;
 end
 
 if Dmax(i,j,k) == 1
     Sdmax(i,j,k) = 2;
+    fcdmax(i,j,k) = 2;
 end
 
 if Dmax(i,j,k) == 1.5
     Sdmax(i,j,k) = 5;
+    fcdmax(i,j,k) = 10.25;
 end
 
 if Dmax(i,j,k) == 2
     Sdmax(i,j,k) = 9;
+    fcdmax(i,j,k) = 28;
 end
 
 if Dmax(i,j,k) == 3
     Sdmax(i,j,k) = 21;
+    fcdmax(i,j,k) = 128;
 end
 
 if Dmax(i,j,k) == 3.5
     Sdmax(i,j,k) = 25;
+    fcdmax(i,j,k) = 153;
 end
 
 if Dmax(i,j,k) == 4
     Sdmax(i,j,k) = 45;
+    fcdmax(i,j,k) = 459;
 end
 
 if Dmax(i,j,k) == 4.5
     Sdmax(i,j,k) = 49;
+    fcdmax(i,j,k) = 496;
 end
 
 if Dmax(i,j,k) == 5
     Sdmax(i,j,k) = 77;
+    fcdmax(i,j,k) = 1176;
 end
 
 if Dmax(i,j,k) == 5.5
     Sdmax(i,j,k) = 81;
+    fcdmax(i,j,k) = 1225;
 end
 
 if Dmax(i,j,k) == 6
     Sdmax(i,j,k) = 177;
+    fcdmax(i,j,k) = 2495;
 end
 
 if Dmax(i,j,k) == 6.5
     Sdmax(i,j,k) = 121;
+    fcdmax(i,j,k) = 2556;
 end
 
-if Dmax(i,j,k) == 7
+if Dmax(i,j,k) == 150
     Sdmax(i,j,k) = 165;
+    fcdmax(i,j,k) = 4680;
 end
 
-if Dmax(i,j,k) == 7.5
+if Dmax(i,j,k) == 150.5
     Sdmax(i,j,k) = 169;
+    fcdmax(i,j,k) = 4753;
 end
 
 if Dmax(i,j,k) == 8
     Sdmax(i,j,k) = 221;
+    fcdmax(i,j,k) = 8043;
 end
 
 if Dmax(i,j,k) == 8.5
     Sdmax(i,j,k) = 225;
+    fcdmax(i,j,k) = 8128;
 end
 
 if Dmax(i,j,k) == 9
     Sdmax(i,j,k) = 285;
+    fcdmax(i,j,k) = 12944;
 end
 
 if Dmax(i,j,k) == 9.5
     Sdmax(i,j,k) = 289;
+    fcdmax(i,j,k) = 13041;
 end
 
 if Dmax(i,j,k) == 10
     Sdmax(i,j,k) = 357;
+    fcdmax(i,j,k) = 19781;
 end
 
 if Dmax(i,j,k) == 10.5
     Sdmax(i,j,k) = 361;
+    fcdmax(i,j,k) = 19890;
 end
 
 if Dmax(i,j,k) == 11
     Sdmax(i,j,k) = 437;
+    fcdmax(i,j,k) = 28958;
 end
 
 if Dmax(i,j,k) == 11.5
     Sdmax(i,j,k) = 441;
+    fcdmax(i,j,k) = 29079;
 end
 
 if Dmax(i,j,k) == 12
     Sdmax(i,j,k) = 525;
+    fcdmax(i,j,k) = 41031;
 end
 
 if Dmax(i,j,k) == 12.5
     Sdmax(i,j,k) = 529;
+    fcdmax(i,j,k) = 41164;
 end
 
     
@@ -323,22 +375,23 @@ end
       
       %%
       %calculating Fcdmax
-      
-      for i = 1:A
-      for j = 1:A
-      for k = 1:A
-    
-      for x = 1: Sdmax(i,j,k)
-          
-          fcdmaxint = 2 * Dmax(i,j,k) * distgeo(i,j,k) - (distgeo(i,j,k))^2;
-          
-          fcdmax(i,j,k) = fcdmax(i,j,k) + fcdmaxint;
-          
-      end
-
-  end
-    end
-      end
+%       
+%       for i = 1:A
+%       for j = 1:A
+%       for k = 1:A
+%     
+%         for x = 1: Sdmax(i,j,k);
+%           
+%           %%Change******
+%           fcdmaxint =   2 * Dmax(i,j,k) * distgeo(i,j,k) - (distgeo(i,j,k))^2 ;
+%           
+%           fcdmax(i,j,k) = fcdmax(i,j,k) + fcdmaxint;
+%           
+%       end
+% 
+%   end
+%     end
+%       end
 
 
 %%
@@ -350,7 +403,9 @@ end
           
           if fcdmax(i,j,k)~= 0
           
-          w(i,j,k) = R^2 * Rmax(i,j,k) * (rho/(8*mu)) * (2 * Dmax(i,j,k) * distgeo(i,j,k) - (distgeo(i,j,k))^2)/ fcdmax(i,j,k);
+              %Change ******
+              
+          w(i,j,k) = R^2 * Rmax(i,j,k) * (rho/(8*mu)) * (2 * Dmax(i,j,k) * distgeo(i,j,k) - (distgeo(i,j,k))^2 )/ fcdmax(i,j,k);
           
           end
           
@@ -476,7 +531,7 @@ D.value=ndSparse(D.value,size(D.value));
 
 %%
 %Solveing PDE
- msgbox('start solving')
+ %msgbox('start solving')
 
     c = solvePDE(m, M, RHS);
     
@@ -506,14 +561,15 @@ D.value=ndSparse(D.value,size(D.value));
 L = 150;
 mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
 G=cartGrid([L L L]);
+% 
+    figure
+    plotCellData(G, c1);
+    s.EdgeColor = 'none';
+    colorbar;
+    view(3);
+    
+    drawnow
 
-%     figure
-%     plotCellData(G, c1);
-%     s.EdgeColor = 'none';
-%     colorbar;
-%     view(3);
-%     
-%     drawnow
 
     
     
@@ -530,11 +586,11 @@ G=cartGrid([L L L]);
     uzvalue1 = u.zvalue(:,:,1:end-1);
     uzvalue = full(uzvalue1);
     
-    Jtot = sum(uzvalue(:));
     
     
-   % uz = uzvalue;
-   % uz(isnan(uz))= 0;
+    
+   uz = uzvalue;
+   uz(isnan(uz))= 0;
     
 
 %     uz = uz(:);
@@ -558,11 +614,13 @@ L = 150;
 
 
 
-%for k = 1:L;
+for k = 1:L;
     
-%tempuz(k) = sum(sum(uz(:,:,k)));
+tempuz(k) = sum(sum(uz(:,:,k)));
 
-%end
+end
+
+Jtot = sum(tempuz(:));
 
 
 %q = tempuz(:).*A;
@@ -571,7 +629,7 @@ L = 150;
 %%
 
 
-K = L * R * Jtot ; 
+K = L * R * Jtot  ; 
 
 %Kxx=1/((150*R).^2).*sum(sum(sum(full(uz))))
 
