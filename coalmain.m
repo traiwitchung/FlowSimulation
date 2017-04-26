@@ -7,24 +7,24 @@
 
 %%
 
-%only for geopack
-%load('geopack.mat');
+%only for tube
+%load('tube.mat');
 
 
 %%
-A = 150;
+A = 42;
 
 R = 10e-6;
 
 c = (R)/2; %half of voxel size
 
-distgeo = R*bwdist(geopack,'euclidean');
+distgeo = R*bwdist(tube,'euclidean');
 
 for i = 1:A
     for j = 1:A
         for k = 1:A
             
-if geopack(i,j,k) == 1
+if tube(i,j,k) == 1
     D1(i,j,k) = 0;
     
 else
@@ -48,7 +48,7 @@ clear L
 clear A
  
 
-clear geopack
+clear tube
 % D3 = D1(:);
 % meandd = mean(mean(mean(D3(D3~=0))))
 % 
@@ -61,18 +61,18 @@ clear geopack
 
 %FVToolStartUp()
 
-%  load('geopack')
+%  load('tube')
 
 % L = size(geosmall(:,1,1))
 
 %% Define the domain and create a mesh structure
-L = 150;  % domain length
+L = 42;  % domain length
 Nx = L; % number of cells
 m = createMesh3D(Nx,Nx,Nx,L,L,L);
 
 %%
 
-L = 150;
+L = 42;
 mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
 G=cartGrid([L L L]);
 
@@ -116,7 +116,7 @@ BC.back.a(:) = 0; BC.back.b(:)=1; BC.back.c(:)=1; % back boundary
 %MRST produces D2
 
 
-D = zeros(150.^3,1);
+D = zeros(42.^3,1);
 D(G.cells.indexMap)= D1(:);
 D = reshape(D,m.dims);%rand(m.dims);
 
@@ -155,7 +155,7 @@ D.value=ndSparse(D.value,size(D.value));
 %     clear SourceTerm
 %     clear F
    % clear geo2
-    clear geopack
+    clear tube
     clear i
     clear j
     clear k
@@ -200,12 +200,13 @@ D.value=ndSparse(D.value,size(D.value));
 
 % startup
 % clc; clear;
-L = 150;
+L = 42;
 mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
 G=cartGrid([L L L]);
+
 % 
     figure
-    plotCellData(G, c1);
+    plotCellData(G, c1(:));
     s.EdgeColor = 'none';
     colorbar;
     view(3);
@@ -241,7 +242,7 @@ G=cartGrid([L L L]);
 
     %%
 % find flow rate of each layer
-L = 150;
+L = 42;
 
 
 A = (R)^2*ones(L,1);
@@ -261,13 +262,14 @@ end
 
 q = tempuz(:).*A;
 
-meanq = mean(q)
+meanq = mean(q);
 %%
 
+L = L 
 
 K = (L/(L*L)) * (meanq * 1)/(R*1) *10^12
 
-%Kxx=1/((150*R).^2).*sum(sum(sum(full(uz))))
+%Kxx=1/((42*R).^2).*sum(sum(sum(full(uz))))
 
 % check1 = uz(:,:,3);
 % check2 = sum(sum(check1));
