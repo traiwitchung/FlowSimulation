@@ -1,20 +1,38 @@
 
 
-L = 102
-tube = zeros(L,L);
+Lx = 102
+Ly = 4
+tube = zeros(Lx,Ly);
+shape = 4;
 
+% 
+%     for y =1:L
+%         for x = 1:L
+%             
+%             if (x- 21)^2 + (y- 21)^2 <= 20^2 ;
+%                 tube(x,y,:) = 0 ;
+%                 
+%             else
+%                 
+%                 tube(x,y,:) = 1;
+%                 
+%             end
+%         end
+%     end
 
+%%
 
-    for y =1:L
-        for x = 1:L
+% 
+    for y =1:Ly
+        for x = 1:Lx
             
            tube(:,1) = 1;
            
-           %tube(:,1,:) = 1;
+           tube(:,1,:) = 1;
            
-           tube(:,L) = 1;
+           tube(:,Ly) = 1;
            
-          % tube(:,L,:) = 1;
+          tube(:,Ly,:) = 1;
           
            
         end
@@ -22,7 +40,7 @@ tube = zeros(L,L);
     
     clear x
     clear y
-    
+%     
 %     mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
 %     G=cartGrid([L L]);
 % %
@@ -31,14 +49,18 @@ tube = zeros(L,L);
 %     
 
  %%
- R = 4e-6;
+ R = 50e-6;
+ 
+% 
+distgeo = bwdist(tube,'euclidean');
+maxdist = max(distgeo(:));
 
 
-
-distgeo = R*bwdist(tube,'euclidean');
+distgeo2 = R*bwdist(tube,'euclidean');
+%distgeo = bwdist(tube,'euclidean');
 %distgeo = round(distgeo/0.5)*0.5;
 
-maxdist = max(distgeo(:));
+
 
     
 
@@ -59,10 +81,10 @@ maxdist = max(distgeo(:));
 %%
 %define initial Dmax
 
-Dmax = zeros(L,L);
+Dmax = zeros(Lx,Ly);
 
-for i = 1:L
- for j = 1:L
+for i = 1:Lx
+ for j = 1:Ly
   
   
   Dmax(i,j) = distgeo(i,j);
@@ -75,10 +97,10 @@ for i = 1:L
 
 
 
-  for t = 1: maxdist + 2
+  for t = 1: round(maxdist) +1
       
-        for i = 2:L-1
-        for j = 2:L-1
+        for i = 2:Lx-1
+        for j = 2:Ly-1
         
             
       if Dmax(i,j) ~= 0
@@ -140,7 +162,7 @@ for i = 1:L
   end
         
   Dmax(1,:) = Dmax(2,:);
-  Dmax(L,:) = Dmax(L-1,:);
+  Dmax(Lx,:) = Dmax(Lx-1,:);
   
     %%
     %%
@@ -148,14 +170,14 @@ for i = 1:L
 rho = 1;
 mu = 1;
 
-  for i = 1:L
-      for j = 1:L
+  for i = 1:Lx
+      for j = 1:Ly
         
           
              if distgeo(i,j) ~= 0
                  
          
-        w(i,j) = R^2 * (rho/(2*mu)) * (2 * Dmax(i,j) * distgeo(i,j) - (distgeo(i,j))^2 );
+        w(i,j) = shape * R^2 * (rho/(8*mu)) * (2 * Dmax(i,j) * distgeo(i,j) - (distgeo(i,j))^2 );
 
        
              else
@@ -177,10 +199,10 @@ D1 = w;
     %%
     
 mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
-G=cartGrid([L L]);
+G=cartGrid([Lx Ly]);
     
-Nx = L; % number of cells
-m = createMesh2D(Nx,Nx, L,L);
+Nx = Lx; % number of cells
+m = createMesh2D(Lx,Ly, Lx,Ly);
 %% Create the boundary condition structure
 BC = createBC(m); % all Neumann boundary condition structure
 
@@ -190,9 +212,9 @@ BC.right.a(:) = 0; BC.right.b(:)=1; BC.right.c(:)=0; % right boundary
 % BC.bottom.a(:) = 0; BC.bottom.b(:)=1; BC.bottom.c(:)=0; % bottom boundary
 
 %%
-D = zeros(L.^2,1);
+D = zeros(Lx,Ly);
 D(G.cells.indexMap)= D1(:);
-D = reshape(D,m.dims);%rand(m.dims);
+D = reshape(D,m.dims);
 
 clear G
 % D = 1
@@ -259,21 +281,21 @@ D.value=ndSparse(D.value,size(D.value));
     
     %%
     
-      mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
-      G=cartGrid([L L]);
-        figure(10)
-        subplot(2,1,1)
-    plotCellData(G, c1);
-    
-    subplot(2,1,2)
-    plotCellData(G, tube(:));
+%       mrstModule add incomp mpfa mimetic ad-core ad-blackoil ad-eor ad-props deckformat mrst-gui ad-fi
+%       G=cartGrid([Lx Ly]);
+%         figure(10)
+%         subplot(2,1,1)
+%     plotCellData(G, c1);
+%     
+%     subplot(2,1,2)
+%     plotCellData(G, tube(:));
     
     %%
     Dfacex = full(Dface.xvalue);
     
     gradient = -gradientTerm(c)
     
-    u = Dface.*-gradientTerm(c)/R;
+    u = Dface.*-gradientTerm(c)/1e-6;  %special case
     
     ux = u.xvalue(1:end-1,:);
     uy = u.yvalue(:,1:end-1);
@@ -283,33 +305,33 @@ D.value=ndSparse(D.value,size(D.value));
     ux(isnan(ux)) = 0;
     uy = full(uy);
     
-    figure(11)
-    plotCellData(G, ux(:));
-    figure(12)
-    plotCellData(G, uy(:));
+%     figure(11)
+%     plotCellData(G, ux(:));
+   % figure(12)
+   % plotCellData(G, uy(:));
     
     %%
     
-    Uprofile = ux(L/2,:);
+    Uprofile = ux(Lx/2,:);
     Uprofile = Uprofile(:);
     
     
     %%
     
-A = (R)^2*ones(L,1);
-q = zeros(L,1);
-tempuz = zeros(L,1);
-    
-for k = 1:L;
-    
-tempuz(k) = sum(sum(ux(k,:)));
-
-end
-
-q = tempuz(:).*A;
-
-meanq = mean(q)
-
-K = (L/(L*L)) * (meanq * 1)/(R*1) 
+% A = (R)^2*ones(L,1);
+% q = zeros(L,1);
+% tempuz = zeros(L,1);
+%     
+% for k = 1:L;
+%     
+% tempuz(k) = sum(sum(ux(k,:)));
+% 
+% end
+% 
+% q = tempuz(:).*A;
+% 
+% meanq = mean(q)
+% 
+% K = (L/(L*L)) * (meanq * 1)/(R*1) 
     
     
